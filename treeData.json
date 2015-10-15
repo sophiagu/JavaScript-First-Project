@@ -1,0 +1,55 @@
+[
+  {
+    "name": "A",
+    "value": 10,
+    "parent": "null",
+    "children": [
+      {
+        "name": "B",
+        "value": 7,
+        "parent": "A",
+        "children": [
+          {
+            "name": "D",
+            "value": 6,
+            "parent": "B",
+            "children": [
+              {
+                "name": "I",
+                "value": 12,
+                "parent": "D"
+              }
+            ]
+          },
+          {
+            "name": "E",
+            "value": 9,
+            "parent": "B"
+          }
+        ]
+      },
+      {
+        "name": "C",
+        "value": 1,
+        "parent": "A",
+        "children": [
+          {
+            "name": "F",
+            "value": 8,
+            "parent": "C"
+          },
+          {
+            "name": "G",
+            "value": 2,
+            "parent": "C"
+          },
+          {
+            "name": "H",
+            "value": 15,
+            "parent": "C"
+          }
+        ]
+      }
+    ]
+  }
+]
