@@ -2,21 +2,25 @@
   {
     "name": "A",
     "value": 10,
+    "level": 0,
     "parent": "null",
     "children": [
       {
         "name": "B",
         "value": 7,
+        "level": 1,
         "parent": "A",
         "children": [
           {
             "name": "D",
             "value": 6,
+            "level": 2,
             "parent": "B",
             "children": [
               {
                 "name": "I",
                 "value": 12,
+                "level": 3,
                 "parent": "D"
               }
             ]
@@ -24,6 +28,7 @@
           {
             "name": "E",
             "value": 9,
+            "level": 2,
             "parent": "B"
           }
         ]
@@ -31,21 +36,25 @@
       {
         "name": "C",
         "value": 1,
+        "level": 1,
         "parent": "A",
         "children": [
           {
             "name": "F",
             "value": 8,
+            "level": 2,
             "parent": "C"
           },
           {
             "name": "G",
             "value": 2,
+            "level": 2,
             "parent": "C"
           },
           {
             "name": "H",
             "value": 15,
+            "level": 2,
             "parent": "C"
           }
         ]
