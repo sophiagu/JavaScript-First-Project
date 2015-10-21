@@ -1,15 +1,18 @@
+body {
+	background-color: #003;
+}
+
 .node circle {
-	fill: #fff;
-	stroke: #cf3;
-	stroke-width: 3px;
+	fill: #ff9;
 }
 
 .node text {
+	fill: white;
 	font: 13px sans-serif;
 }
 
 .link {
 	fill: none;
-	stroke: #c9f;
+	stroke: #999;
 	stroke-width: 2px;
 }
