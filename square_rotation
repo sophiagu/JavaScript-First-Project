@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+var width = 720,
+    height = 720,
+    numSquares = 12;
+// set up canvas
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .style("background", "#111");
+// set up scale
+var scale = d3.scale.ordinal()
+    .domain(d3.range(-numSquares / 2, numSquares / 2 + 1))
+    .rangePoints([0, width], 5);
+// push the data
+var data = [];
+for (var x = -numSquares / 2; x <= numSquares / 2; x++) {
+    for (var y = -numSquares / 2; y <= numSquares / 2; y++) {
+        data.push({x: x, y: y});
+    }
+}
+// draw the squares
+var squares = svg.selectAll("g")
+    .data(data)
+    .enter().append("g");
+squares.append("rect")
+    .attr("x", -60)
+    .attr("y", -60)
+    .attr("width", 120)
+    .attr("height", 120)
+    .attr("fill", "#d1d1d1")
+    .attr("fill-opacity", 0.15);
+// animate the squares
+d3.timer(function(t) {
+    squares.attr("transform", function(d) {
+        return "translate(" + [scale(d.x), scale(d.y)] + ")rotate(" + 360 * (t % 12000 / 12000) + ")";
+    });
+});
+</script>
+</body>
+</html>
