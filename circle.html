@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+var width = 500,
+    height = 500,
+    n = 100;
+var colors = ["#DF013A", "green", "blue", "yellow", "orange", "purple", "#FF4000", "#FF00FF"];
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .style("background", "#2A0A12")
+    .append("g")
+    .attr("transform", "translate(" + [width / 2, height / 2] + ")");
+
+function getColor() {
+  return colors[Math.round(Math.random() * colors.length)];
+}
+
+var circles = svg.selectAll("circle")
+    .data(d3.range(0, n))
+    .enter().append("circle")
+    .attr("fill", "none")
+    .attr("stroke", "#DF013A")
+    .attr("stroke-opacity", 0.8)
+    .attr("r", width / 4);
+d3.timer(function(t) {
+    circles.attr("cx", function(d) {
+        var a = d * Math.PI * 2 / n,
+            r = width / 4 * Math.sin(d * t / 1000 / n);
+        return r * Math.cos(a);
+    });
+    circles.attr("cy", function(d) {
+        var a = d * Math.PI * 2 / n,
+            r = width / 4 * Math.sin(d * t / 1000 / n);
+        return r * Math.sin(a);
+    });
+    circles.attr("stroke", getColor());
+});
+</script>
+</body>
+</html>
