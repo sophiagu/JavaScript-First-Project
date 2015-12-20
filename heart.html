@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Heart</title>
+  <style>
+    body{
+    }
+    
+    chart{
+      display: block;
+      margin-left:auto; 
+      margin-right: auto;
+    }
+    
+    text {
+      text-anchor: middle;
+      fill: #fff;
+      font-size: 28px;
+      opacity: 0.9;
+    }
+
+    path{
+      stroke: #fff;
+      stroke-width: 1;
+      fill: none;
+      opacity: 0.4;
+    }
+
+    circle {
+      fill: #fff;
+      opacity: 0.9;
+    }
+  </style>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+  </head>
+
+  <body>
+    <div id="chart"></div>
+
+    <script type="text/javascript">
+      window.onerror = function() {
+        location.reload();
+      }
+      
+      var margin = {top: 10, right: 10, bottom: 10, left: 10},
+        docHeight = $(document).height() - margin.left - margin.right,
+        docWidth  = $(document).width() - margin.top - margin.bottom;
+      
+      var minSize = Math.min(500,(docWidth-40),(docHeight-40)),
+        width = minSize,
+        height = minSize;
+       
+      // create the datapoints with x y positions for the heart boundary
+      var x, y;
+      var data = [];
+      for (var i = 0; i < 350; i++) {
+        x = 16 * Math.pow(Math.sin(i),3);
+        y = 13 * Math.cos(i) - 5* Math.cos(2*i) - 2 * Math.cos(3*i) - Math.cos(4*i)
+        data[i] = [x,y];
+      }
+
+      // initialize the scales
+      var xScale = d3.scale.linear()
+            .domain([d3.min(data, function(d) { return d[0]; }), d3.max(data, function(d) { return d[0]; })])
+            .range([ 0, width ]);
+
+      var yScale = d3.scale.linear()
+            .domain([d3.min(data, function(d) { return d[1]; }), d3.max(data, function(d) { return d[1]; })])
+            .range([ height, 0 ]);
+
+      // initiate the SVG
+      var chart = d3.select('#chart')
+        .append('svg')
+        .attr('width', docWidth)
+        .attr('height', docHeight)
+        .attr('class', 'chart')
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .style("background", "#111");
+        
+      // initialize the group
+      var svg = chart.append('g')
+        .attr('transform', 'translate(' + (docWidth/2-width/2) + ',' + (docHeight/2-height/2) + ')')
+        .attr('width', width)
+        .attr('height', height); 
+
+      // draw the heart
+      var line = d3.svg.line()
+            .interpolate('linear')
+            .x(function(d){ return xScale(d[0]) })
+            .y(function(d){ return yScale(d[1]) });
+            
+      var path = svg.append("g").append("path")
+          .attr("d", line(data));
+          
+      var totalLength = path.node().getTotalLength();   
+      path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(12e4).delay(10)
+        .ease("linear")
+        .attr("stroke-dashoffset", 0);
+    
+  </script>
+  </body>
+</html>
